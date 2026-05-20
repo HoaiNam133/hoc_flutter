@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:hoc_flutter/Entities/Product.dart';
+import 'package:hoc_flutter/Resposistory/ProductDAO.dart';
 void main() {
+  // truyền list Product vào constructor
+  Productdao dao =
+  Productdao(Product.products);
   // HIỂN THỊ BAN ĐẦU
   print("DANH SÁCH BAN ĐẦU");
-  Product.showProducts();
+  dao.showProducts();
   // THÊM
   print("THÊM PRODUCT");
-  Product.addProduct(Product(
+  dao.addProduct(Product(
     id: "04",
     name: "Keyboard",
     image: "keyboard.png",
     price: 120)
   );
-  Product.showProducts();
+  dao.showProducts();
   // SỬA
-  print("SỬA PRODUCT");
-  Product.updateProduct(
-    "01",
-    newName: "Gaming Laptop",
-    newPrice: 2000,
+  var p = Product(
+    id: "01",
+    name: "Gaming Laptop",
+    price: 2000,
   );
-  Product.showProducts();
+  dao.updateProduct(p);
   // XÓA
   print("XÓA PRODUCT");
-  Product.deleteProduct("02");
-  Product.showProducts();
+  dao.deleteProduct("02");
+  dao.showProducts();
   // TÌM KIẾM
   print("TÌM KIẾM");
   List<Product> result =
-  Product.searchByName("Laptop");
+ dao.searchByName("Laptop");
   for (var x in result) {
     print(
       "ID: ${x.id} - "
@@ -39,7 +42,7 @@ void main() {
   // LỌC GIÁ
   print("PRICE > 100");
   List<Product> expensiveProducts =
-  Product.getPriceGreaterThan(100);
+  dao.searchByPrice(100);
   for (var x in expensiveProducts) {
     print(
       "ID: ${x.id} - "
@@ -49,12 +52,16 @@ void main() {
   }
   // SẮP XẾP PRICE
   print("SORT BY PRICE");
-  Product.sortByPrice();
-  Product.showProducts();
+  dao.sortByPrice();
+  dao.showProducts();
   // SẮP XẾP TÊN
   print("SORT BY NAME");
-  Product.sortByName();
-  Product.showProducts();
+  dao.sortByName();
+  dao.showProducts();
+  // TĂNG GIÁ 10%
+  print("INCREASE PRICE");
+  dao.increasePrice();
+  dao.showProducts();
 }
 
 

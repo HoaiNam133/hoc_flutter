@@ -1,21 +1,50 @@
 class Product {
   final String id;
-  final String? name;
+  final String name;
   final String? image;
-  final double? price;
-  // DANH SÁCH TĨNH
-  static List<Product> products=[
-  Product(id: "01",name: "Laptop",image: "images.laptop.jpg",price:1500),
-    Product(id: "02",name: "Phone",image: "images.phone.jpg",price: 800),
-    Product(id: "03",name: "Mouse",image: "images.mouse.jpg",price: 300),
-  ];
+  double price;
+
   // CONSTRUCTOR
-  Product({required this.id,this.name="",this.image="",this.price=0});
-  // COPY OBJECT
-  Product copyTo({String? id,String? name,String? image,double? price}){
-    return Product(id: id??this.id,name: name??this.name,image: image??this.image,price: price??this.price);
+  Product(
+      {required this.id, required this.name, this.image, required this.price});
+
+  // FACTORY JSON
+  factory Product.fromJson(Map<String, dynamic>json){
+    return Product(id: json['id'],
+        name: json['name'],
+        image: json['image'],
+        price: json['price']);
   }
-  // HIỂN THỊ DANH SÁCH
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id, 'name': name, 'image': image, 'price': price
+    };
+  }
+
+  //toString
+  @override
+  String toString() {
+    return 'Product{name:$name,id:$id,image:$image,price:$price';
+  }
+
+  // COPY OBJECT
+  Product copyWith({String? id, String? name, String? image, double? price}) {
+    return Product(id: id ?? this.id,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        price: price ?? this.price);
+  }
+
+  // DANH SÁCH TĨNH
+  static List<Product> products = [
+    Product(id: "01", name: "Laptop", price: 1500),
+    Product(id: "02", name: "Phone", price: 800),
+    Product(id: "03", name: "Mouse", price: 300),
+  ];
+}
+
+  /*// HIỂN THỊ DANH SÁCH
   static void showProducts(){
     for(var x in products){
       print(
@@ -83,5 +112,4 @@ class Product {
   // SẮP XẾP THEO GIÁ
   static void sortByPrice(){
     products.sort((a,b)=>(a.price??0).compareTo(b.price??0));
-  }
-}
+  }*/

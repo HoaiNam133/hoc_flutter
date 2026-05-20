@@ -38,7 +38,7 @@ void main(){
   Student student=Student.fromJson({"id":"sv01","name":"A","age":20,"gpa":3.5});
 }
 
-//Buoi 1 /{
+//Buoi 1
 class Student {
   final String id;
   final String name;
